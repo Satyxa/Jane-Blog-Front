@@ -1,0 +1,246 @@
+h1, p, a {
+    font-weight:400;
+    font-style:normal;
+    font-family:Courier New;
+}
+
+.header-box {
+    height: 450px;
+}
+
+.header-image-box {
+    position: absolute;
+    top: -60px;
+    left: 38%;
+    text-align: center;
+}
+
+.header-title {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    font-size:22.5px;
+    text-shadow:3px 3px 4px rgba(0, 0, 0, 1);
+    color: #A39C8D;
+}
+.authors-comment img{
+    max-width: 229px;
+    max-height: 882px;
+}
+
+.content-box {
+    background-color: white;
+    width: 100%;
+    max-height: 540px;
+    display: flex;
+}
+@media (max-width: 768px) {
+    .main-content-box {
+        max-width: 700px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .content-box {
+        background-color: white;
+        height: 1000px; /* пусть высота подстроится */
+        flex: none;
+        align-items: stretch; /* растягиваем по ширине */
+    }
+
+    .authors-comment img{
+        width: 50px;
+        height: 200px;
+    }
+
+    .blog-box {
+        width: 100%;
+        height: 1000px;
+    }
+
+    .project-idea {
+        width: 300px;    /* чтобы заняли всю ширину родителя */
+        height: 250px;   /* высота под содержимое */
+    }
+
+    .swiper-wrapper-fix {
+        width: 100% !important;  /* важный момент, иногда слайдер имеет свои стили */
+        height: auto !important;
+        min-height: 300px; /* можно задать минимальную высоту */
+    }
+}
+.blog-box {
+    /*background-color: black;*/
+    width: 80%;
+    height: 590px;
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mySwiper {
+    width: 100%;
+    max-width: 670px;
+    height: 100%;
+    max-height: 555px;
+}
+
+.slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-link {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgba(110, 3, 3, 0.8);
+    text-decoration: none;
+    font-family: Courier New, monospace;
+    font-size: 18px;
+    border-radius: 5px;
+    opacity: 0;                    /* скрыта по умолчанию */
+    pointer-events: none;          /* не кликабельна когда скрыта */
+    transition: opacity 0.3s;
+    font-weight: bold;
+}
+
+.swiper-slide:hover .slide-link {
+    opacity: 1;
+    pointer-events: auto;          /* делаем кликабельной при появлении */
+}
+
+.slide-link:hover {
+    background-color: rgba(110, 3, 3, 0.8); /* полупрозрачный фон */
+    color: white;
+
+}
+
+.mySwiper .swiper-pagination {
+    position: absolute;
+    bottom: 20px; /* расположение точек снизу */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;          /* сделает точки в ряд без растяжения */
+    justify-content: center;
+    align-items: center;
+    width: auto;            /* ключевой момент — убирает растяжение на всю ширину */
+    height: auto;           /* чтобы не было лишней полосы по высоте */
+    background: transparent;/* на всякий случай, чтобы не появлялась подложка */
+    z-index: 10;
+    padding: 0;             /* чтобы не было полосы из-за отступов */
+    margin: 0;
+}
+
+.mySwiper .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: white;  /* или нужный тебе цвет */
+    opacity: 0.7;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+    background: #6E0303; /* цвет для активной точки */
+    opacity: 1;
+}
+
+.mySwiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.mySwiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-wrapper-fix {
+    flex: none; /* убирает влияние flex */
+    width: 100%;
+    height: 100%;
+}
+.blog-link {
+    /*background-color: blue;*/
+    font-family: Courier New;
+    color: white;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    text-decoration: none;
+    width: 100%;
+    height: 5%;
+}
+
+.blog-link:hover {
+    color: #6E0303;
+}
+
+.project-idea {
+    position: relative;
+    top: 26%;
+    right: 0;
+    width: 35%;
+    height: 65%;
+}
+
+.authors-comment {
+    position: static; /* или вообще убери позиционирование */
+    width: auto;      /* или нужная ширина */
+    height: auto;
+    flex: 0 0 auto;   /* чтобы блок не растягивался */
+}
+.authors-comment {
+    margin-right: auto; /* заставит буквы уйти к левому краю */
+    order: 1;
+}
+.blog-about-box {
+    width: 82%;
+    display: flex;
+    flex-direction: column;
+}
+.content-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-about-quote-text {
+    font-family: Courier New;
+    font-size: 24px;
+    color: #228C80;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.blog-about-quote-author {
+    font-family: Courier New;
+    font-size: 24px;
+    color: #228C80;
+    font-style: italic;
+    font-weight: 400;
+    text-align: right;
+}
+
+.authors-comment { order: 1; }   /* буквы слева в ряду */
+.header-image-box { order: 2; }  /* фонарики идут первыми */
+.blog-box        { order: 3; }   /* карусель по центру после букв */
+.project-idea    { order: 4; }   /* personNotAd справа в ряду */
+.blog-link       { order: 5; }   /* ссылка на комменты */
+.blog-about-box  { order: 6; }

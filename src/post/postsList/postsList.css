@@ -1,0 +1,93 @@
+h1, h2, p, a {
+    font-weight:400;
+    font-style:normal;
+    font-family:Courier New;
+}
+
+.lights {
+    background-color: transparent;
+    position: absolute;
+    top: -45px;
+    right: 0;
+}
+
+.lights img {
+    z-index: 0 !important;
+    background-color: transparent;
+    width: 320px;
+    height: 349px;
+}
+
+.content-container {
+    margin-top: 120px;
+    margin-bottom: 300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.disclaimer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: auto;
+    text-align: center;
+}
+.disclaimer-title {
+    font-style: italic;
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.disclaimer-text {
+    font-style: italic;
+    margin-top: 10px;
+    padding: 0;
+    margin-bottom: 60px;
+    font-size: 20px;
+    color: rgba(180, 174, 157, 1);
+}
+
+.postList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post {
+    margin-bottom: 30px;
+    width: 50%;
+    height: 110px;
+}
+
+.post img {
+    width: 100%;
+    height: 100%;
+    display: block; /* чтобы убрать лишние отступы вокруг img */
+    image-rendering: pixelated;
+}
+
+.post-title {
+    position: relative;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -80%;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 2px 3px 2px black;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.post-title:hover {
+    color: #750402;
+}
