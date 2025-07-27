@@ -1,59 +1,61 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
 import './ManagePost.css'
+import './ManageSlider.css'
 import headerImageLights from "../assets/header-image-lights.webp";
-
-export const ManagePost = () => {
+import axios from "axios";
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+export const ManageSlider = () => {
     const [action, setAction] = useState<"update" | "delete" | "">("");
-    const [postId, setPostId] = useState("");
-    const [title, setTitle] = useState("");
-    const [text, setText] = useState("");
-    const [poster, setPoster] = useState<File | null>(null);
-    const [images, setImages] = useState<File[]>([]);
+    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = useState<File | null>(null);
+    const [ sliderImages, setSliderImages ] = useState([]);
+    useEffect(() => {
+        const fetchSliderImages = async () => {
+            try {
+                const response = await axios.get(`${SERVER_URL}/admin-pages/slider`, {
+                });
+                setSliderImages(response.data);
+            } catch (error) {
+                console.error('Ошибка при получении поста:', error);
+            }
+        };
 
-    const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            const selected = Array.from(e.target.files);
-            const combined = [...images, ...selected].slice(0, 10);
-            setImages(combined);
-        }
-    };
+        fetchSliderImages();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!postId) {
+        if (action === 'delete' && !imageUrl) {
             alert("Post ID is required");
             return;
         }
 
-        const url = `http://localhost:3000/posts/${postId}`;
+        const url = `${SERVER_URL}/admin-pages/slider`;
 
         try {
             if (action === "delete") {
-                const response = await fetch(url, { method: "DELETE", credentials: "include" });
-
+                const response = await fetch(url, { method: "DELETE", body: JSON.stringify({ url: imageUrl }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }, credentials: "include" });
                 if (!response.ok) throw new Error("Failed to delete post");
             }
 
             if (action === "update") {
                 const formData = new FormData();
-                formData.append("title", title);
-                formData.append("text", text);
 
-                if (poster) formData.append("file", poster);
-                if (images) {
-                    Array.from(images).forEach((img) => {
-                        formData.append("images", img);
-                    });
-                }
+                if (image) formData.append("file", image);
 
                 const response = await fetch(url, {
-                    method: "PUT",
+                    method: "POST",
                     body: formData,
                     credentials: "include",
                 });
+
+
+                setImage(null)
+                setImageUrl("")
 
                 if (!response.ok) throw new Error("Failed to update post");
             }
@@ -63,104 +65,75 @@ export const ManagePost = () => {
     };
 
     return (
-        <div className="page-wrapper">
-            <div className="admin-pages-images-container">
-                <div className="admin-pages-lights"><a href="/"><img src={headerImageLights} alt=""/></a></div>
-            </div>
-            <div className="page-wrapper-box">
-                <div className="form-container">
-                    <h2>Manage Post</h2>
-                    <form onSubmit={handleSubmit} encType="multipart/form-data">
-                        <div className="form-group">
-                            <label className="form-item" htmlFor="action">Action</label>
-                            <select className="form-item"
-                                    id="action"
-                                    value={action}
-                                    onChange={(e) => setAction(e.target.value as "update" | "delete" | "")}
-                            >
-                                {/*<option className="form-item" value="">Select Action</option>*/}
-                                <option className="form-item" value="delete">Delete</option>
-                                <option className="form-item" value="update">Update</option>
-                            </select>
-                        </div>
+       <div>
+           <div className="manage-slider-page-wrapper">
+               <div className="admin-pages-images-container">
+                   <div className="admin-pages-lights"><a href="/" className="admin-pages-lights-link"><img src={headerImageLights} alt=""/></a></div>
+               </div>
+               <div className="page-wrapper-box">
+                   <div className="form-container">
+                       <h2>Manage Slider</h2>
+                       <form onSubmit={handleSubmit} encType="multipart/form-data">
+                           <div className="form-group">
+                               <label className="form-item" htmlFor="action">Action</label>
+                               <select className="form-item"
+                                       id="action"
+                                       value={action}
+                                       onChange={(e) => setAction(e.target.value as "update" | "delete" | "")}
+                               >
+                                   <option className="form-item" value="delete">Delete</option>
+                                   <option className="form-item" value="update">Add</option>
+                               </select>
+                           </div>
 
-                        <div className="form-group">
-                            <label className="form-item" htmlFor="postId">Post ID</label>
-                            <input className="form-item"
-                                   id="postId"
-                                   type="text"
-                                   value={postId}
-                                   onChange={(e) => setPostId(e.target.value)}
-                                   required
-                            />
-                        </div>
+                           {action === "delete" && (
+                               <div className="form-group">
+                                   <label className="form-item" htmlFor="imageUrl">Image Url</label>
+                                   <input className="form-item"
+                                          id="imageUrl"
+                                          type="text"
+                                          value={imageUrl}
+                                          onChange={(e) => setImageUrl(e.target.value)}
+                                          required
+                                   />
+                               </div>
+                           )}
 
-                        {action === "update" && (
-                            <>
-                                <div className="form-group">
-                                    <label className="form-item" htmlFor="title">Title</label>
-                                    <input className="form-item"
-                                           id="title"
-                                           type="text"
-                                           value={title}
-                                           onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                </div>
+                           {action === "update" && (
+                               <>
 
-                                <div className="form-group">
-                                    <label className="form-item" htmlFor="text">Text</label>
-                                    <textarea className="form-item"
-                                              id="text"
-                                              value={text}
-                                              onChange={(e) => setText(e.target.value)}
-                                    />
-                                </div>
+                                   <div className="form-group">
+                                       <label className="form-item" htmlFor="image">Slider (1 image)</label>
+                                       <input className="form-item"
+                                              id="image"
+                                              type="file"
+                                              accept="image/*"
+                                              onChange={(e) => setImage(e.target.files?.[0] || null)}
+                                       />
+                                   </div>
 
-                                <div className="form-group">
-                                    <label className="form-item" htmlFor="poster">Poster (1 image)</label>
-                                    <input className="form-item"
-                                           id="poster"
-                                           type="file"
-                                           accept="image/*"
-                                           onChange={(e) => setPoster(e.target.files?.[0] || null)}
-                                    />
-                                </div>
+                               </>
+                           )}
 
-                                <div className="form-group">
-                                    <label className="create-content-form-item" htmlFor="images">Upload Images (up to 10)</label>
-                                    <input
-                                        id="images"
-                                        type="file"
-                                        accept="image/*"
-                                        multiple
-                                        onChange={handleImagesChange}
-                                        className="form-input"
-                                    />
-                                    {images.length > 0 && (
-                                        <div className="image-preview-list">
-                                            <p>Image Previews:</p>
-                                            {images.map((img, idx) => (
-                                                <img
-                                                    key={idx}
-                                                    src={URL.createObjectURL(img)}
-                                                    alt={`img-${idx}`}
-                                                    className="image-preview-item"
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            </>
-                        )}
-
-                        <div className="form-group-button">
-                            <button type="submit">
-                                {action === "delete" ? "Delete Post" : "Update Post"}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                           <div className="form-group-button">
+                               <button type="submit">
+                                   {action === "delete" ? "Delete Image" : "Add Image"}
+                               </button>
+                           </div>
+                       </form>
+                   </div>
+               </div>
+           </div>
+           <div className="slider-images-container">
+               <div className="slider-images-box">
+                   {sliderImages.length > 0 && sliderImages.map((image: {id: string, url: string}, i) => (
+                       <div className="slider-images-box__item">
+                           <div className="slider-images-box__item-image"><img src={image.url} alt="" width="300px" height="auto"/></div>
+                           <div className="slider-images-box__item-url"><p className="slider-images-box__item-url-text">{image.url}</p></div>
+                       </div>
+                   ))}
+               </div>
+           </div>
+       </div>
     );
 };

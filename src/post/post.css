@@ -1,0 +1,124 @@
+h1, h2, p, a, button {
+    font-weight:400;
+    font-style:normal;
+    font-family:Courier New;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.post-container {
+    background-color: transparent;
+    width: 55%;
+    height: auto;
+    margin-bottom: 200px;
+    margin-top: 140px;
+}
+
+.images-container {
+    max-width: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.lights {
+    position: fixed;
+    top: -50px;
+    right: 2%;
+    z-index: 0 !important;
+    background-color: transparent;
+    width: 290px;
+    height: 319px;
+}
+
+.post-images-container {
+    width: 100%;
+    margin-top: 300px;
+}
+
+.post-image{
+    margin-top: 30px;
+    max-width: 100%;
+    height: auto;
+}
+
+.post-title {
+    font-size: 25px;
+    color: #B4AE9D;
+    font-weight: bold;
+}
+
+.post-text {
+    font-size: 25px;
+    color: #A09788;
+    white-space: pre-wrap;
+}
+
+.comments-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.comments-page-button {
+    padding: 6px 12px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.comments-page-button:hover {
+    background-color: #e0e0e0;
+}
+
+.comments-page-button.active {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 100%;
+    }
+    .post-container {
+        width: 80%;
+        height: auto;
+        margin-top: 250px;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 15px;
+    }
+
+    .post-text {
+        font-size: 12px;
+    }
+
+    .post-images-container {
+        display: none;
+    }
+    .images-container {
+        width: 0;
+    }
+
+    .images-container img{
+        width: 230px;
+        height: 250px;
+        position: relative;
+        top: -50px;
+        right: 60%;
+    }
+
+}

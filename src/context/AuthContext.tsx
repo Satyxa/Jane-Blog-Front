@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const AuthContext = createContext<{
     isAuthenticated: boolean;
     setAuthenticated: (value: boolean) => void;
@@ -15,10 +15,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const checkAuth = async () => {
+        console.log(SERVER_URL, 'eioreiorgio');
         try {
-            const res = await axios.get("http://localhost:3000/me", {
+            const res = await axios.get(`${SERVER_URL}/auth/me`, {
                 withCredentials: true // важно!
             });
+            console.log(res.status)
             if (res.status === 200) {
                 setIsAuthenticated(true);
             }

@@ -1,120 +1,67 @@
 .admin-pages-images-container {
-    display: block;
-    margin-bottom: 200px;
-    width: 0;
-
-}
-
-.admin-pages-images-container img {
-    position: relative;
-    width: 250px;
-    height: 280px;
-    right: 20%;
     background-color: transparent;
 }
+
 .admin-pages-lights {
-    display: flex;
-    position: absolute;
-    top: -45px;
-    right: 0;
+    background-color: transparent;
 }
 
-
-.page-wrapper {
-    min-height: 100vh;
-
+.admin-pages-lights-link img {
+    background-color: transparent;
+}
+.manage-slider-page-wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    margin-top: 200px;
 }
 
-.page-wrapper-box {
-    width: 100%;
-    padding: 40px;
+.slider-images-box {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.form-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 20px;
     width: 100%;
-    max-width: 600px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.form-container h2 {
-    margin-bottom: 20px;
-    font-style: italic;
-    color: #222;
-}
-
-.form-group {
-    background-color: #fff;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #000;
-}
-
-.form-container h2 {
-    display: block;
-    background-color: white;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    margin-bottom: 20px;
-    outline: none;
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: #fff !important;
-    color: #000 !important;
-    font-size: 14px;
+.slider-images-box__item {
+    flex: 1 1 calc(33.333% - 20px); /* три в ряд с учётом gap */
     box-sizing: border-box;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-.form-item {
-    background-color: #fff;
+@media (max-width: 900px) {
+    .slider-images-box__item {
+        flex: 1 1 calc(50% - 20px); /* два в ряд на средних экранах */
+    }
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-    margin-bottom: 0;
+@media (max-width: 600px) {
+    .slider-images-box__item {
+        flex: 1 1 100%; /* один в ряд на маленьких экранах */
+    }
 }
 
-.form-group-button {
+.slider-images-box__item-image img {
     width: 100%;
-    background-color: #fff;
-    padding: 20px 0 5px 0;
-}
-
-.form-group-button button {
-    margin-bottom: 0;
-    margin-top: 0;
-    width: 100%;
-    padding: 12px 0;
-    background-color: #c92626;
-    color: #fff;
-    border: none;
+    height: auto;
     border-radius: 6px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
+    display: block;
 }
 
-.form-group-button button:hover {
-    background-color: #a31e1e;
+.slider-images-box__item-url-text {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: black;
+    word-break: break-all;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.slider-images-box__item-url {
+    background-color: white;
 }

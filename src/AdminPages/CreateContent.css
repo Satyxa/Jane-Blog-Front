@@ -26,9 +26,18 @@ h1, h2, p, a {
 }
 
 .create-post-container {
+    /*background-color: white;*/
     max-width: 600px;
     margin: 0 auto 300px auto;
     padding: 20px;
+}
+
+.create-content-form-box {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 200px;
 }
 
 .create-post-title {
@@ -38,39 +47,41 @@ h1, h2, p, a {
     color: white;
 }
 
-.create-post-form .form-group {
-    margin-bottom: 16px;
+.create-post-form .create-content-form-group {
+    background-color: #fff;
 }
 
 .form-input,
 .form-textarea {
-    border: none;
+    border: 1px solid lightblue;
     border-radius: 4px;
     background-color: white;
-    width: 100%;
+    width: 95%;
     padding: 8px;
     font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
 }
 
-.image-preview {
+.image-preview { background-color: #fff;
     margin-top: 10px;
 }
 
-.image-preview img {
+.image-preview img { background-color: #fff;
     width: 100%;
     max-height: 200px;
     object-fit: cover;
     border: 1px solid #ccc;
 }
 
-.image-preview-list {
+.image-preview-list { background-color: #fff;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 10px;
 }
 
-.image-preview-item {
+.image-preview-item { background-color: #fff;
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -82,14 +93,16 @@ h1, h2, p, a {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 200px;
+    border: 1px solid lightblue;
 }
 
 .hidden-file-input {
+    background-color: #fff;
     display: none;
 }
 
 .custom-file-input {
+    background-color: #fff;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -97,14 +110,28 @@ h1, h2, p, a {
 
 .file-label {
     padding: 6px 12px;
-    background-color: #333;
+    background-color: #fff;
     color: white;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
 }
 
-.file-name {
+.file-name { background-color: #fff;
     font-size: 14px;
     color: #555;
+}
+
+.create-content-form-item {
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.form-input {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form-submit-button {
+    background-color: white;
 }

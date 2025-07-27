@@ -4,117 +4,191 @@ h1, p, a {
     font-family:Courier New;
 }
 
-.container {
+.wff-container {
     display: flex;
 
 }
 
-.lights {
+.wff-lights {
+    background-color: transparent;
     position: relative;
     top: -45px;
     right: 0;
 }
 
-.lights, .personNotAnAdHand, .personNotAnAdTransparent, .watermelon {
+.wff-lights, .wff-theFool {
     background-color: transparent;
     opacity: 1;
 }
 
-.lights img {
+.wff-lights img {
     z-index: 0 !important;
     background-color: transparent;
     width: 320px;
     height: 349px;
 }
 
-.personNotAnAdTransparent img{
-    width: 490px;
-    height: 449px;
+.wff-images-container {
+    width: 25%;
 }
 
-.personNotAnAdHand img {
-    width: 520px;
-    height: 549px;
-    padding-top: 100px;
-}
-
-.watermelon  img{
+.wff-theFool img{
     padding-top: 400px;
-    width: 520px;
-    height: 450px;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    border-radius: 5px;
 }
 
-.info-container {
+.wff-info-container {
     width: 70%;
     height: auto;
     padding-bottom: 200px;
 }
 
-.info-box {
+.wff-title-box {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wff-info-box {
     width: 100%;
     margin-top: 80px;
     margin-left: 150px;
 }
 
-.info-text-box {
+.wff-info-text-box {
     width: 70%;
 }
 
-.info-title {
+.wff-info-title {
     position: relative;
     z-index: 4;
     text-align: left;
     margin-left: 50px;
-    color: rgba(128, 0, 0, 1);;
-    font-size: 80px;
+    margin-bottom: 60px;
+    color: white;
+    font-size: 55px;
 background-color: transparent;
 }
 
 
-.info-text {
+.wff-info-text {
     font-size: 23px;
-    color: rgba(180, 174, 157, 1);
+    color: white;
     text-align: justify-all;
 }
 
-.kofi-page__link {
+.wff-kofi-page__link {
     color: #800000;
 }
 
-.kofi-page__link:hover {
+.wff-kofi-page__link:hover {
     color: #BD1111;
 }
 
-.eye img{
+.wff-eye img{
     position: relative;
-    top: -65px;
-    right: 40px;
+    left: 0;
+    top: -10px;
     width: 90px;
     height: 60px;
 }
 
 @media (max-width: 768px) {
 
-    .info-container {
+    .wff-container {
+        margin: 0;
+        padding: 0;
         width: 100%;
+        height: auto;
     }
 
-    .images-container {
-        display: none;
+    .wff-info-container {
+        margin: 0;
+        padding: 0;
+        margin-top: 300px;
+        height: auto;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .info-title {
-        font-size: 40px;
+    .wff-info-box {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: auto;
     }
 
-    .info-box {
+    .wff-title-box {
+        margin: 0 0 50px 0;
+        padding: 0;
+        display: flex;
+        width: auto;
+        height: auto;
+        justify-content: center;
+        align-items: center;
         text-align: center;
     }
 
-    .info-text-box {
+    .wff-info-title {
+        color: #9b1010;
+        margin: 0;
+        padding: 0 0 0 20px;
+        height: fit-content;
+        word-wrap: break-word; /* перенос слов */
+        overflow-wrap: break-word; /* альтернатива */
+        max-width: 60vw;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .test {
+        height: auto;
+        width: auto;
+    }
+
+    .wff-theFool {
+        display: none;
+    }
+
+    .wff-images-container {
+        display: block;
+        margin-bottom: 200px;
+        width: 0;
+    }
+
+    .wff-images-container img {
+        position: relative;
+        width: 250px;
+        height: 280px;
+        right: 20%;
+    }
+
+    .wff-lights {
+        display: flex;
+        position: absolute;
+        top: -45px;
+        right: 0;
+        /*margin-bottom: 200px;*/
+    }
+
+    .wff-info-text-box {
         width: 90%;
         margin: 0;
-        padding: 0;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+    }
+
+    .wff-info-text {
 
     }
 }

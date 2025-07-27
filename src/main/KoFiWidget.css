@@ -1,0 +1,90 @@
+/* Ko-fi Widget CSS */
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700,800&display=swap');
+@import url('https://storage.ko-fi.com/cdn/scripts/floating-chat-main.css');
+
+.kofi-widget-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10000;
+    font-family: 'Nunito', sans-serif;
+    background: transparent;
+}
+
+/* Button */
+.kofi-button {
+    display: flex;
+    align-items: center;
+    background-color: #00bfa5;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.kofi-button:hover {
+    background-color: #009e94;
+}
+
+.kofi-img {
+    height: 24px;
+    width: 30px;
+    background-color: transparent;
+}
+
+.kofi-text {
+    margin-left: 8px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+/* Popup */
+.kofi-popup {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 328px;
+    height: 541px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+}
+
+/* Header */
+.kofi-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: #f2f2f2;
+    font-size: 14px;
+}
+
+.kofi-link {
+    color: #0077cc;
+    text-decoration: none;
+    background-color: #fff;
+}
+
+.kofi-close {
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    background-color: transparent;
+}
+
+/* Iframe */
+.kofi-popup-iframe-container {
+    flex: 1;
+    background-color: #fff;
+}
+
+.kofi-close svg {
+    background-color: transparent;
+}

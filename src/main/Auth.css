@@ -1,0 +1,204 @@
+.authorization-box {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+}
+
+.authorization-button {
+    border: none;
+    cursor: pointer;
+    display: block;
+}
+
+.menu-button {
+    border: none;
+    cursor: pointer;
+}
+
+.menu-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.menu-wrapper, .menu-box, .menu-items-box__item, .menu-items-box {
+    background: #fff;
+}
+
+.menu-wrapper {
+    position: absolute;
+    top: 60px;
+    right: 5px;
+    width: 220px;
+    height: auto;
+    z-index: 1;
+}
+
+.menu-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.menu-items-box {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.menu-items-box__item {
+    font-weight: bold;
+}
+
+.menu-items-box:hover {
+    background-color: rgba(110, 3, 3, 0.8);
+}
+
+.menu-items-box:hover .menu-items-box__item {
+    background-color: transparent;
+    color: white;
+}
+
+.menu-icon {
+    transition: transform 0.5s ease;
+}
+
+.menu-icon.rotated {
+    transform: rotate(-90deg);
+}
+
+.authorization-popup-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.authorization-popup-container {
+    width: 50%;
+    height: auto;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 200px;
+    padding: 20px;
+}
+
+.authorization-popup-warning-box {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+.authorization-popup-warning-text {
+    background-color: transparent;
+    font-weight: bold;
+    color: #6E0303;
+    font-size: 20px;
+}
+
+.authorization-popup {
+    background-color: transparent;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.authorization-popup-form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: auto;
+    gap: 20px;
+    background-color: transparent;
+}
+
+.authorization-popup-form input {
+    height: 30px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 5px 15px;
+}
+
+.authorization-popup-form label {
+    background-color: transparent;
+}
+
+.authorization-popup-send-button-box {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 40px;
+    background-color: transparent;
+}
+
+.authorization-popup-send {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 5px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+.authorization-popup-send:hover {
+    background-color: rgba(110, 3, 3, 0.8);
+    color: white;
+}
+
+.authorization-popup-recovery-password, .authorization-popup-change-form {
+    width: auto;
+    padding: 10px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.8); /* белый полупрозрачный фон */
+    color: white;
+}
+
+.button-registration {
+    background-color: transparent;
+    display: block;
+}
+
+.button-login {
+    background-color: transparent;
+    display: none;
+}
+
+.authorization-popup-recovery-password:hover, .authorization-popup-change-form:hover {
+    background-color: rgba(110, 3, 3, 0.8); /* полупрозрачный фон */
+    color: white;
+}
+
+
+.authorization-popup-buttons-box {
+    margin-top: 30px;
+    width: 90%;
+    height: 30px;
+    display: flex;
+    justify-content: space-around;
+    background-color: transparent;
+}

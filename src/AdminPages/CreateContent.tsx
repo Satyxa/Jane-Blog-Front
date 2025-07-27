@@ -1,9 +1,10 @@
-import "./CreatePost.css"
+import "./CreateContent.css"
 import { useState } from "react";
 import headerImageLights from "../assets/header-image-lights.webp";
-import theFool from "../assets/theFool.webp";
 
 type ContentType = "Post" | "wff" | "pnaa" | "Quote";
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export function CreateContent() {
     const [contentType, setContentType] = useState<ContentType>("Post");
@@ -44,7 +45,7 @@ export function CreateContent() {
         }
 
         if (contentType === "Quote") {
-            await fetch("http://localhost:3000/admin-pages/quote", {
+            await fetch(`${SERVER_URL}/admin-pages/quote`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -59,7 +60,7 @@ export function CreateContent() {
 
         const method = contentType === "Post" ? "POST" : "PUT";
 
-        if(contentType !== 'Quote') await fetch(`http://localhost:3000${endpoint}`, {
+        if(contentType !== 'Quote') await fetch(`${SERVER_URL}/${endpoint}`, {
             method,
             body: formData,
             credentials: "include",
@@ -78,125 +79,129 @@ export function CreateContent() {
                 <div className="admin-pages-lights"><a href="/"><img src={headerImageLights} alt=""/></a></div>
             </div>
             <h2 className="create-post-title">Create New Content</h2>
-            <form onSubmit={handleSubmit} className="create-post-form" encType="multipart/form-data">
-                <div className="form-group">
-                    <label htmlFor="type">Select Content Type</label>
-                    <select
-                        id="type"
-                        value={contentType}
-                        onChange={e => setContentType(e.target.value as ContentType)}
-                        className="form-input"
-                    >
-                        <option value="Post">Post</option>
-                        <option value="wff">WFF Page</option>
-                        <option value="pnaa">PNAA Page</option>
-                        <option value="Quote">Quote</option>
-                    </select>
-                </div>
-
-                {(contentType === "Post" || contentType === "wff" || contentType === "pnaa") && (
-                    <>
-                        <div className="form-group">
-                            <label htmlFor="title">Title</label>
-                            <input
-                                id="title"
-                                type="text"
-                                value={title}
-                                onChange={e => setTitle(e.target.value)}
-                                required
-                                className="form-input"
-                                placeholder="Enter title"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="text">Text</label>
-                            <textarea
-                                id="text"
-                                value={text}
-                                onChange={e => setText(e.target.value)}
-                                required
-                                rows={6}
-                                className="form-textarea"
-                                placeholder="Enter content"
-                            />
-                        </div>
-                    </>
-                )}
-
-                {contentType === "Quote" && (
-                    <>
-                        <div className="form-group">
-                            <label htmlFor="author">Author</label>
-                            <input
-                                id="author"
-                                type="text"
-                                value={author}
-                                onChange={e => setAuthor(e.target.value)}
-                                required
-                                className="form-input"
-                                placeholder="Enter author"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="text">Quote Text</label>
-                            <textarea
-                                id="text"
-                                value={text}
-                                onChange={e => setText(e.target.value)}
-                                required
-                                rows={4}
-                                className="form-textarea"
-                                placeholder="Enter quote"
-                            />
-                        </div>
-                    </>
-                )}
-
-                {contentType === "Post" && (
-                    <div className="form-group">
-                        <label htmlFor="poster">Upload Poster</label>
-                        <input
-                            id="poster"
-                            type="file"
-                            accept="image/*"
-                            onChange={handlePosterChange}
+            <div className="create-content-form-box">
+                <form onSubmit={handleSubmit} className="create-post-form" encType="multipart/form-data">
+                    <div className="create-content-form-group">
+                        <label className="create-content-form-item" htmlFor="type">Select Content Type</label>
+                        <select
+                            id="type"
+                            value={contentType}
+                            onChange={e => setContentType(e.target.value as ContentType)}
                             className="form-input"
-                        />
-                        {poster && <span className="file-name">{poster.name}</span>}
+                        >
+                            <option className="create-content-form-item" value="Post">Post</option>
+                            <option className="create-content-form-item" value="wff">WFF Page</option>
+                            <option className="create-content-form-item" value="pnaa">PNAA Page</option>
+                            <option className="create-content-form-item" value="Quote">Quote</option>
+                        </select>
                     </div>
-                )}
 
-                {(contentType === "Post" || contentType === "wff" || contentType === "pnaa") && (
-                    <div className="form-group">
-                        <label htmlFor="images">Upload Images (up to 10)</label>
-                        <input
-                            id="images"
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            onChange={handleImagesChange}
-                            className="form-input"
-                        />
-                        {images.length > 0 && (
-                            <div className="image-preview-list">
-                                <p>Image Previews:</p>
-                                {images.map((img, idx) => (
-                                    <img
-                                        key={idx}
-                                        src={URL.createObjectURL(img)}
-                                        alt={`img-${idx}`}
-                                        className="image-preview-item"
-                                    />
-                                ))}
+                    {(contentType === "Post" || contentType === "wff" || contentType === "pnaa") && (
+                        <>
+                            <div className="create-content-form-group">
+                                <label className="create-content-form-item" htmlFor="title">Title</label>
+                                <input
+                                    id="title"
+                                    type="text"
+                                    value={title}
+                                    onChange={e => setTitle(e.target.value)}
+                                    required
+                                    className="form-input"
+                                    placeholder="Enter title"
+                                />
                             </div>
-                        )}
-                    </div>
-                )}
+                            <div className="form-group">
+                                <label className="create-content-form-item" htmlFor="text">Text</label>
+                                <textarea
+                                    id="text"
+                                    value={text}
+                                    onChange={e => setText(e.target.value)}
+                                    required
+                                    rows={6}
+                                    className="form-textarea"
+                                    placeholder="Enter content"
+                                />
+                            </div>
+                        </>
+                    )}
 
-                <button type="submit" className="submit-button">
-                    Publish {contentType}
-                </button>
-            </form>
+                    {contentType === "Quote" && (
+                        <>
+                            <div className="create-content-form-group">
+                                <label className="create-content-form-item" htmlFor="author">Author</label>
+                                <input
+                                    id="author"
+                                    type="text"
+                                    value={author}
+                                    onChange={e => setAuthor(e.target.value)}
+                                    required
+                                    className="form-input"
+                                    placeholder="Enter author"
+                                />
+                            </div>
+                            <div className="create-content-form-group">
+                                <label className="create-content-form-item" htmlFor="text">Quote Text</label>
+                                <textarea
+                                    id="text"
+                                    value={text}
+                                    onChange={e => setText(e.target.value)}
+                                    required
+                                    rows={4}
+                                    className="form-textarea"
+                                    placeholder="Enter quote"
+                                />
+                            </div>
+                        </>
+                    )}
+
+                    {contentType === "Post" && (
+                        <div className="create-content-form-group">
+                            <label className="create-content-form-item" htmlFor="poster">Upload Poster</label>
+                            <input
+                                id="poster"
+                                type="file"
+                                accept="image/*"
+                                onChange={handlePosterChange}
+                                className="form-input"
+                            />
+                            {poster && <span className="file-name">{poster.name}</span>}
+                        </div>
+                    )}
+
+                    {(contentType === "Post" || contentType === "wff" || contentType === "pnaa") && (
+                        <div className="create-content-form-group">
+                            <label className="create-content-form-item" htmlFor="images">Upload Images (up to 10)</label>
+                            <input
+                                id="images"
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleImagesChange}
+                                className="form-input"
+                            />
+                            {images.length > 0 && (
+                                <div className="image-preview-list">
+                                    <p>Image Previews:</p>
+                                    {images.map((img, idx) => (
+                                        <img
+                                            key={idx}
+                                            src={URL.createObjectURL(img)}
+                                            alt={`img-${idx}`}
+                                            className="image-preview-item"
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    <div className="form-submit-button">
+                        <button type="submit" className="submit-button">
+                            Publish {contentType}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

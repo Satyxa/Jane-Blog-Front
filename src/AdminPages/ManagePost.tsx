@@ -1,131 +1,175 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import './PostUpdDel.css'
+import { useState } from "react";
+import './ManagePost.css'
+import headerImageLights from "../assets/header-image-lights.webp";
 
-export const PostUpdDel = () => {
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
+export const ManagePost = () => {
+    const [action, setAction] = useState<"update" | "delete" | "">("");
+    const [postId, setPostId] = useState("");
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const [poster, setPoster] = useState<File | null>(null);
-    const [images, setImages] = useState<FileList | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [images, setImages] = useState<File[]>([]);
 
-    useEffect(() => {
-        // Загрузка текущих данных поста (если нужно отобразить существующие)
-        axios.get(`http://localhost:3000/posts/${id}`)
-            .then(res => {
-                setTitle(res.data.title || "");
-                setText(res.data.text || "");
-            })
-            .catch(err => {
-                console.error("Failed to fetch post", err);
-            });
-    }, [id]);
-
-    const handleUpdate = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("text", text);
-        if (poster) formData.append("poster", poster);
-        if (images) {
-            Array.from(images)
-                .slice(0, 10)
-                .forEach((img, index) => {
-                    formData.append("images", img);
-                });
-        }
-
-        try {
-            await axios.put(`http://localhost:3000/posts/${id}`, formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-                withCredentials: true,
-            });
-            alert("Post updated!");
-            navigate(`/posts/${id}`);
-        } catch (err) {
-            console.error("Update failed", err);
-            alert("Failed to update post");
-        } finally {
-            setLoading(false);
+    const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const selected = Array.from(e.target.files);
+            const combined = [...images, ...selected].slice(0, 10);
+            setImages(combined);
         }
     };
 
-    const handleDelete = async () => {
-        if (!window.confirm("Are you sure you want to delete this post?")) return;
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!postId) {
+            alert("Post ID is required");
+            return;
+        }
+
+        const url = `${SERVER_URL}/posts/${postId}`;
+
         try {
-            await axios.delete(`http://localhost:3000/posts/${id}`, {
-                withCredentials: true,
-            });
-            alert("Post deleted.");
-            navigate("/posts");
-        } catch (err) {
-            console.error("Delete failed", err);
-            alert("Failed to delete post");
+            if (action === "delete") {
+                const response = await fetch(url, { method: "DELETE", credentials: "include" });
+
+                if (!response.ok) throw new Error("Failed to delete post");
+            }
+
+            if (action === "update") {
+                const formData = new FormData();
+                formData.append("title", title);
+                formData.append("text", text);
+
+                if (poster) formData.append("file", poster);
+                if (images) {
+                    Array.from(images).forEach((img) => {
+                        formData.append("images", img);
+                    });
+                }
+
+                const response = await fetch(url, {
+                    method: "PUT",
+                    body: formData,
+                    credentials: "include",
+                });
+
+                if(response.ok) {
+                    setPostId("")
+                    setText("")
+                    setTitle("")
+                    setPoster(null)
+                    setImages([])
+                    setAction("")
+                }
+
+                if (!response.ok) throw new Error("Failed to update post");
+            }
+        } catch (err: any) {
+            alert("Error: " + err.message);
         }
     };
 
     return (
-        <div className="edit-post-container">
-            <h2>Edit Post</h2>
-            <form onSubmit={handleUpdate} encType="multipart/form-data">
-                <div>
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                        required
-                    />
+        <div className="page-wrapper">
+            <div className="admin-pages-images-container">
+                <div className="admin-pages-lights"><a href="/"><img src={headerImageLights} alt=""/></a></div>
+            </div>
+            <div className="page-wrapper-box">
+                <div className="form-container">
+                    <h2>Manage Post</h2>
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
+                        <div className="form-group">
+                            <label className="form-item" htmlFor="action">Action</label>
+                            <select className="form-item"
+                                    id="action"
+                                    value={action}
+                                    onChange={(e) => setAction(e.target.value as "update" | "delete" | "")}
+                            >
+                                <option className="form-item" value="">Select Action</option>
+                                <option className="form-item" value="delete">Delete</option>
+                                <option className="form-item" value="update">Update</option>
+                            </select>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-item" htmlFor="postId">Post ID</label>
+                            <input className="form-item"
+                                   id="postId"
+                                   type="text"
+                                   value={postId}
+                                   onChange={(e) => setPostId(e.target.value)}
+                                   required
+                            />
+                        </div>
+
+                        {action === "update" && (
+                            <>
+                                <div className="form-group">
+                                    <label className="form-item" htmlFor="title">Title</label>
+                                    <input className="form-item"
+                                           id="title"
+                                           type="text"
+                                           value={title}
+                                           onChange={(e) => setTitle(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-item" htmlFor="text">Text</label>
+                                    <textarea className="form-item"
+                                              id="text"
+                                              value={text}
+                                              onChange={(e) => setText(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-item" htmlFor="poster">Poster (1 image)</label>
+                                    <input className="form-item"
+                                           id="poster"
+                                           type="file"
+                                           accept="image/*"
+                                           onChange={(e) => setPoster(e.target.files?.[0] || null)}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="create-content-form-item" htmlFor="images">Upload Images (up to 10)</label>
+                                    <input
+                                        id="images"
+                                        type="file"
+                                        accept="image/*"
+                                        multiple
+                                        onChange={handleImagesChange}
+                                        className="form-input"
+                                    />
+                                    {images.length > 0 && (
+                                        <div className="image-preview-list">
+                                            <p>Image Previews:</p>
+                                            {images.map((img, idx) => (
+                                                <img
+                                                    key={idx}
+                                                    src={URL.createObjectURL(img)}
+                                                    alt={`img-${idx}`}
+                                                    className="image-preview-item"
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        )}
+
+                        <div className="form-group-button">
+                            <button type="submit">
+                                {action === "delete" ? "Delete Post" : "Update Post"}
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                <div>
-                    <label>Text</label>
-                    <textarea
-                        value={text}
-                        onChange={e => setText(e.target.value)}
-                        required
-                    ></textarea>
-                </div>
-
-                <div>
-                    <label>Poster (max 1)</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={e => setPoster(e.target.files?.[0] || null)}
-                    />
-                </div>
-
-                <div>
-                    <label>Images (max 10)</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={e => {
-                            if (e.target.files && e.target.files.length > 10) {
-                                alert("You can only upload up to 10 images");
-                                return;
-                            }
-                            setImages(e.target.files);
-                        }}
-                    />
-                </div>
-
-                <button type="submit" disabled={loading}>
-                    {loading ? "Updating..." : "Update Post"}
-                </button>
-
-                <button type="button" onClick={handleDelete} style={{ marginLeft: "1rem" }}>
-                    Delete Post
-                </button>
-            </form>
+            </div>
         </div>
     );
 };

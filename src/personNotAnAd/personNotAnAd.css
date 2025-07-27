@@ -1,0 +1,160 @@
+h1, p, a {
+    font-weight:400;
+    font-style:normal;
+    font-family:Courier New;
+}
+
+.pnaa-container {
+    display: flex;
+
+}
+
+.pnaa-lights {
+    position: relative;
+    top: -45px;
+    right: 0;
+}
+
+.pnaa-lights,
+.pnaa-personNotAnAdHand,
+.pnaa-personNotAnAdTransparent,
+.pnaa-watermelon {
+    background-color: transparent;
+    opacity: 1;
+}
+
+.pnaa-lights img {
+    z-index: 0 !important;
+    background-color: transparent;
+    width: 320px;
+    height: 349px;
+}
+
+.pnaa-personNotAnAdTransparent img{
+    width: 490px;
+    height: 449px;
+}
+
+.pnaa-personNotAnAdHand img {
+    width: 520px;
+    height: 549px;
+    padding-top: 100px;
+}
+
+.pnaa-watermelon  img{
+    padding-top: 400px;
+    width: 520px;
+    height: 450px;
+}
+
+.pnaa-info-container {
+    width: 70%;
+    height: auto;
+    padding-bottom: 200px;
+}
+
+.pnaa-info-box {
+    width: 100%;
+    margin-top: 80px;
+    margin-left: 150px;
+}
+
+.pnaa-info-text-box {
+    width: 70%;
+}
+
+.pnaa-info-title {
+    position: relative;
+    z-index: 4;
+    text-align: left;
+    margin-left: 50px;
+    color: rgba(128, 0, 0, 1);;
+    font-size: 80px;
+background-color: transparent;
+}
+
+
+.pnaa-info-text {
+    font-size: 23px;
+    color: rgba(180, 174, 157, 1);
+    text-align: justify-all;
+}
+
+.pnaa-kofi-page__link {
+    color: #800000;
+}
+
+.pnaa-kofi-page__link:hover {
+    color: #BD1111;
+}
+
+.pnaa-eye img{
+    position: relative;
+    top: -65px;
+    right: 40px;
+    width: 90px;
+    height: 60px;
+}
+
+@media (max-width: 768px) {
+
+    .pnaa-info-container {
+        width: 100%;
+        margin: 350px 0 150px 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pnaa-personNotAnAdTransparent,
+    .pnaa-personNotAnAdHand,
+    .pnaa-watermelon {
+        display: none;
+    }
+
+    .pnaa-images-container {
+        position: absolute;
+        width: 0;
+        left: 15%;
+    }
+
+    .pnaa-eye {
+        /*position: absolute;*/
+        /*top: -45px;*/
+    }
+    .pnaa-eye img {
+
+    }
+
+    .pnaa-lights {
+        /*position: absolute;*/
+        /*top: -45px;*/
+    }
+
+    .pnaa-info-title {
+        font-size: 25px;
+        text-align: center;
+        word-wrap: break-word; /* перенос слов */
+        overflow-wrap: break-word; /* альтернатива */
+        margin: 0;
+        padding: 0;
+    }
+
+    .pnaa-info-box {
+        text-align: center;
+        width: 95%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pnaa-info-text-box {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pnaa-info-text {
+        font-size: 17px;
+    }
+}

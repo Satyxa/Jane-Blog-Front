@@ -1,46 +1,120 @@
-.edit-post-container {
-    width: 60%;
-    margin: 80px auto;
-    padding: 30px;
-    background-color: #1c1c1c;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+.admin-pages-images-container {
+    display: block;
+    margin-bottom: 200px;
+    width: 0;
+
 }
 
-.edit-post-container h2 {
+.admin-pages-images-container img {
+    position: relative;
+    width: 250px;
+    height: 280px;
+    right: 20%;
+    background-color: transparent;
+}
+.admin-pages-lights {
+    display: flex;
+    position: absolute;
+    top: -45px;
+    right: 0;
+}
+
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 200px;
+}
+
+.page-wrapper-box {
+    width: 100%;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-container h2 {
     margin-bottom: 20px;
     font-style: italic;
+    color: #222;
 }
 
-.edit-post-container form div {
-    margin-bottom: 15px;
+.form-group {
+    background-color: #fff;
 }
 
-.edit-post-container input[type="text"],
-.edit-post-container textarea {
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #000;
+}
+
+.form-container h2 {
+    display: block;
+    background-color: white;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    margin-bottom: 20px;
+    outline: none;
     width: 100%;
     padding: 10px;
-    background: #333;
-    color: white;
-    border: 1px solid #666;
     border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff !important;
+    color: #000 !important;
+    font-size: 14px;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-.edit-post-container input[type="file"] {
-    background: none;
-    color: white;
+.form-item {
+    background-color: #fff;
 }
 
-.edit-post-container button {
-    padding: 10px 20px;
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 0;
+}
+
+.form-group-button {
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0 5px 0;
+}
+
+.form-group-button button {
+    margin-bottom: 0;
+    margin-top: 0;
+    width: 100%;
+    padding: 12px 0;
     background-color: #c92626;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
 }
 
-.edit-post-container button:hover {
+.form-group-button button:hover {
     background-color: #a31e1e;
 }
