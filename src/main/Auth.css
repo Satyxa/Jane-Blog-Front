@@ -2,12 +2,15 @@
     position: absolute;
     top: 10px;
     right: 30px;
+    z-index: 2;
+    background-color: transparent;
 }
 
 .authorization-button {
     border: none;
     cursor: pointer;
     display: block;
+    background: transparent;
 }
 
 .menu-button {
@@ -201,4 +204,17 @@
     display: flex;
     justify-content: space-around;
     background-color: transparent;
+}
+
+
+@media (max-width: 768px) {
+
+    .authorization-popup-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        gap: 20px;
+        background-color: transparent;
+    }
 }

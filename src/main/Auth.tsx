@@ -219,23 +219,23 @@ export const Auth = () => {
                             >
                                 Reset password
                             </button>
-                            <button
-                                className="authorization-popup-change-form"
-                                onClick={toggleForm}
-                            >
-                                <span
-                                    className="button-registration"
-                                    style={{display: isRegister ? "none" : "block"}}
-                                >
-                                    Registration
-                                </span>
-                                <span
-                                    className="button-login"
-                                    style={{display: isRegister ? "block" : "none"}}
-                                >
-                                    Login
-                                </span>
-                            </button>
+                            {/*<button*/}
+                            {/*    className="authorization-popup-change-form"*/}
+                            {/*    onClick={toggleForm}*/}
+                            {/*>*/}
+                            {/*    <span*/}
+                            {/*        className="button-registration"*/}
+                            {/*        style={{display: isRegister ? "none" : "block"}}*/}
+                            {/*    >*/}
+                            {/*        Registration*/}
+                            {/*    </span>*/}
+                            {/*    <span*/}
+                            {/*        className="button-login"*/}
+                            {/*        style={{display: isRegister ? "block" : "none"}}*/}
+                            {/*    >*/}
+                            {/*        Login*/}
+                            {/*    </span>*/}
+                            {/*</button>*/}
                         </div>
                     </div>
                 </div>

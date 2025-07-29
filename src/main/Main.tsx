@@ -14,7 +14,7 @@ import "./MainMobileStyles.css";
 import KofiWidget from "./KoFiWidget";
 import {Auth} from "./Auth";
 import axios from "axios";
-
+import { Helmet } from 'react-helmet';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export function Main() {
@@ -55,6 +55,9 @@ export function Main() {
     if(!sliderImages) return <div> Loading... </div>;
     return (
         <div className="Main">
+            <Helmet>
+                <title>Главная — Inctagram</title>
+            </Helmet>
             <Auth/>
             <div className='header-box'>
                 <div className="header-image-box">

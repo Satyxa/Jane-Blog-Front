@@ -60,7 +60,7 @@ export function CreateContent() {
 
         const method = contentType === "Post" ? "POST" : "PUT";
 
-        if(contentType !== 'Quote') await fetch(`${SERVER_URL}/${endpoint}`, {
+        if(contentType !== 'Quote') await fetch(`${SERVER_URL}${endpoint}`, {
             method,
             body: formData,
             credentials: "include",
