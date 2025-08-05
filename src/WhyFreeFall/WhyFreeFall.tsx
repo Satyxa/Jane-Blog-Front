@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {PostType} from "../post/post";
 import KofiWidget from "../main/KoFiWidget";
+import {Helmet} from "react-helmet";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -17,21 +18,24 @@ export function WhyFreeFall() {
         imagesUrls: string[],
     } | null>(null);
     useEffect(() => {
-        const fetchPost = async () => {
+        const fetchWFF = async () => {
             try {
                 const response = await axios.get(`${SERVER_URL}/admin-pages/wff-pnaa-pages?pageType=wff`, {
                 });
                 setContent(response.data);
             } catch (error) {
-                console.error('Ошибка при получении поста:', error);
+                console.error('Cannot get WFF page from server:', error);
             }
         };
 
-        fetchPost();
+        fetchWFF();
     }, []);
     if(!content) return <div> <p> ...Loading</p></div>
     return (
         <div>
+            <Helmet>
+                <title>{content.title} - Freefall</title>
+            </Helmet>
             <div className="wff-container">
                 <div className="wff-info-container">
                     <div className="wff-info-box">

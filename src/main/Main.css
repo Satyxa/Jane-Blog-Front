@@ -188,23 +188,6 @@ h1, p, a {
     flex-direction: column;
 }
 
-.blog-about-quote-text {
-    font-family: Courier New;
-    font-size: 24px;
-    color: #228C80;
-    font-style: italic;
-    font-weight: 400;
-}
-
-.blog-about-quote-author {
-    font-family: Courier New;
-    font-size: 24px;
-    color: #228C80;
-    font-style: italic;
-    font-weight: 400;
-    text-align: right;
-}
-
 .authors-comment { order: 1; }   /* буквы слева в ряду */
 .header-image-box { order: 2; }  /* фонарики идут первыми */
 .blog-box        { order: 3; }   /* карусель по центру после букв */

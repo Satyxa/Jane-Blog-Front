@@ -143,7 +143,7 @@ background-color: transparent;
         word-wrap: break-word; /* перенос слов */
         overflow-wrap: break-word; /* альтернатива */
         max-width: 60vw;
-        font-size: 25px;
+        font-size: 28px;
         font-weight: bold;
     }
 
@@ -189,6 +189,6 @@ background-color: transparent;
     }
 
     .wff-info-text {
-
+font-size: 26px;
     }
 }

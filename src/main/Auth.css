@@ -16,6 +16,7 @@
 .menu-button {
     border: none;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .menu-wrapper {
@@ -70,10 +71,12 @@
 
 .menu-icon {
     transition: transform 0.5s ease;
+    background-color: transparent;
 }
 
 .menu-icon.rotated {
     transform: rotate(-90deg);
+    background-color: transparent;
 }
 
 .authorization-popup-wrapper {

@@ -24,6 +24,27 @@ export function Main() {
     } | null>(null);
 
     const [ sliderImages, setSliderImages ] = useState([]);
+
+    const quoteRef = useRef<HTMLDivElement | null>(null);
+    const projectRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const updatePadding = () => {
+            if (window.innerWidth <= 768 && quoteRef.current && projectRef.current) {
+                const quoteHeight = quoteRef.current.offsetHeight;
+                projectRef.current.style.paddingTop = `${quoteHeight - 50}px`;
+            } else if (projectRef.current) {
+                projectRef.current.style.paddingTop = "0px";
+            }
+        };
+
+        updatePadding();
+
+        window.addEventListener("resize", updatePadding);
+        return () => window.removeEventListener("resize", updatePadding);
+    }, [quote]);
+
+
     useEffect(() => {
         const fetchQuote = async () => {
             try {
@@ -31,7 +52,7 @@ export function Main() {
                 });
                 setQuote(response.data);
             } catch (error) {
-                console.error('Ошибка при получении поста:', error);
+                console.error('Cannot get quote from server:', error);
             }
         };
 
@@ -45,18 +66,17 @@ export function Main() {
                 });
                 setSliderImages(response.data);
             } catch (error) {
-                console.error('Ошибка при получении поста:', error);
+                console.error('Cannot get slider images from server:', error);
             }
         };
 
         fetchSliderImages();
     }, []);
-    console.log(sliderImages)
     if(!sliderImages) return <div> Loading... </div>;
     return (
         <div className="Main">
             <Helmet>
-                <title>Главная — Inctagram</title>
+                <title>Main - Freefall</title>
             </Helmet>
             <Auth/>
             <div className='header-box'>
@@ -94,14 +114,15 @@ export function Main() {
                             </Swiper>
                         )}
                     </div>
-                    <div className="projectIdea"><a href="/not-ad"><img src={personNotAnAd} width="100%" height="100%"/></a>
+                    <div className="projectIdea" ref={projectRef}><a href="/not-ad"><img src={personNotAnAd} width="100%" height="100%"/></a>
                     </div>
                 </div>
 
 
                 <div className="test">
-                    <div className="blog-quote-box">
+                    <div className="blog-quote-box" ref={quoteRef}>
                         <p className="blog-quote-text" style={{ whiteSpace: "pre-line" }}>{quote?.text}</p>
+                        <br/>
                         <p className="blog-quote-author" style={{ whiteSpace: "pre-line" }}>{quote?.author}</p>
                     </div>
                 </div>

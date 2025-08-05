@@ -80,12 +80,10 @@ export const CreateComment = (
             if(setComments) {
                 setComments(prev => [ newComment, ...prev]);
             }
-            console.log(username, comment)
             setUsername("");
             setComment("");
-            console.log(username, comment)
         } catch (err) {
-            console.error("Ошибка при отправке комментария", err);
+            console.error("Cannot send comment to the server", err);
         }
     };
 

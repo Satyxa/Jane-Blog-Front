@@ -15,12 +15,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const checkAuth = async () => {
-        console.log(SERVER_URL, 'eioreiorgio');
         try {
             const res = await axios.get(`${SERVER_URL}/auth/me`, {
                 withCredentials: true // важно!
             });
-            console.log(res.status)
             if (res.status === 200) {
                 setIsAuthenticated(true);
             }
@@ -34,7 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     const logout = async () => {
-        await axios.post("http://localhost:3000/logout", {}, { withCredentials: true });
+        await axios.post(`${SERVER_URL}/auth/logout`, {}, { withCredentials: true });
         setIsAuthenticated(false);
     };
 

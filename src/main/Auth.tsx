@@ -1,6 +1,6 @@
 import authorization from "../assets/authorization.svg";
 import menu from "../assets/menu.svg";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuth} from "../context/AuthContext";
 import axios from "axios";
 import './Auth.css'
@@ -18,6 +18,21 @@ export const Auth = () => {
     const [newPassword, setNewPassword] = useState("");
 
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await axios.get(`${SERVER_URL}/auth/me`, {
+                    withCredentials: true,
+                });
+                setAuthenticated(true);
+            } catch (e) {
+                setAuthenticated(false);
+            }
+        };
+
+        checkAuth();
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -52,21 +67,18 @@ export const Auth = () => {
     const handleSend = async () => {
         try {
             if (isReset && !recoveryCodeSent) {
-                // 1. Отправка запроса на отправку кода
                 await axios.post(`${SERVER_URL}/auth/recovery-code`, { email });
                 setRecoveryCodeSent(true);
                 return;
             }
 
             if (isReset && recoveryCodeSent) {
-                // 2. Отправка нового пароля
                 await axios.post(`${SERVER_URL}/auth/new-password`, {
                     email,
                     newPassword,
                     recoveryCode,
                 });
-                alert("Пароль успешно обновлён");
-                // Сброс
+                alert("Password updated!");
                 setIsReset(false);
                 setRecoveryCodeSent(false);
                 setNewPassword("");
@@ -74,7 +86,6 @@ export const Auth = () => {
                 return;
             }
 
-            // 3. Обычный логин
             await axios.post(`${SERVER_URL}/auth/login`, {
                 email,
                 password,
@@ -87,7 +98,7 @@ export const Auth = () => {
             setIsRegister(false);
             setIsReset(false);
         } catch (err) {
-            alert("Ошибка запроса");
+            alert("Cannot send auth request");
         }
     };
 
@@ -102,11 +113,6 @@ export const Auth = () => {
     const toggleMenu = () => {
         setIsMenuVisible(!isMenuVisible);
         setIsOpen(prev => !prev);
-    };
-
-    const toggleForm = () => {
-        setIsRegister(!isRegister);
-        setIsReset(false);
     };
 
     const toggleReset = () => {
@@ -219,23 +225,6 @@ export const Auth = () => {
                             >
                                 Reset password
                             </button>
-                            {/*<button*/}
-                            {/*    className="authorization-popup-change-form"*/}
-                            {/*    onClick={toggleForm}*/}
-                            {/*>*/}
-                            {/*    <span*/}
-                            {/*        className="button-registration"*/}
-                            {/*        style={{display: isRegister ? "none" : "block"}}*/}
-                            {/*    >*/}
-                            {/*        Registration*/}
-                            {/*    </span>*/}
-                            {/*    <span*/}
-                            {/*        className="button-login"*/}
-                            {/*        style={{display: isRegister ? "block" : "none"}}*/}
-                            {/*    >*/}
-                            {/*        Login*/}
-                            {/*    </span>*/}
-                            {/*</button>*/}
                         </div>
                     </div>
                 </div>

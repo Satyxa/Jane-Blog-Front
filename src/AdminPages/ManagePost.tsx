@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import './ManagePost.css'
 import headerImageLights from "../assets/header-image-lights.webp";
+import {Helmet} from "react-helmet";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -73,6 +74,9 @@ export const ManagePost = () => {
 
     return (
         <div className="page-wrapper">
+            <Helmet>
+                <title>Manage Post - Freefall</title>
+            </Helmet>
             <div className="admin-pages-images-container">
                 <div className="admin-pages-lights"><a href="/"><img src={headerImageLights} alt=""/></a></div>
             </div>

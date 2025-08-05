@@ -8,6 +8,7 @@ import axios from "axios";
 import {useParams, useSearchParams} from "react-router-dom";
 import {log} from "node:util";
 import KofiWidget from "../main/KoFiWidget";
+import {Helmet} from "react-helmet";
 
 export type PostType = {
     id: string;
@@ -28,7 +29,13 @@ export function Post() {
     const [totalComments, settotalComments] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(parseInt(searchParams.get("pageNumber") || "1"));
     const [pageSize, setpageSize] = useState<number>(parseInt(searchParams.get("pageSize") || "10"));
-
+    useEffect(() => {
+        if (post) {
+            document.title = `${post.title} - Freefall`;
+        } else {
+            document.title = 'Loading... - Freefall';
+        }
+    }, [post]);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -43,7 +50,7 @@ export function Post() {
                 setComments(response.data.post.comments);
                 settotalComments(response.data.commentsTotalCount);
             } catch (error) {
-                console.error('Ошибка при получении поста:', error);
+                console.error('Cannot get the post from server:', error);
             }
         };
 
@@ -54,6 +61,7 @@ export function Post() {
     }
 
     const totalPages = Math.ceil(totalComments / pageSize);
+    console.log(post)
     return (
         <div>
             <div className="container">
@@ -80,7 +88,6 @@ export function Post() {
                     </a>
                     <div className="post-images-container">
                         {post!.imagesUrls!.map((url) => {
-                            console.log(url)
                             return (
                             <img src={url} alt="" className="post-image"/>
                             )})}

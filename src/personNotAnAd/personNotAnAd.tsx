@@ -7,6 +7,7 @@ import "./personNotAnAd.css"
 import axios from "axios";
 import React, {useEffect, useState} from "react";
 import KofiWidget from "../main/KoFiWidget";
+import {Helmet} from "react-helmet";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -18,22 +19,25 @@ export function PersonNotAnAd() {
         imagesUrls: string[],
     } | null>(null);
     useEffect(() => {
-        const fetchPost = async () => {
+        const fetchPNAA = async () => {
             try {
                 const response = await axios.get(`${SERVER_URL}/admin-pages/wff-pnaa-pages?pageType=pnaa`, {
                 });
                 setContent(response.data);
             } catch (error) {
-                console.error('Ошибка при получении поста:', error);
+                console.error('Cannot get PNAA page from server:', error);
             }
         };
 
-        fetchPost();
+        fetchPNAA();
     }, []);
 
     if(!content) return <div> <p> ...Loading</p></div>
     return (
         <div>
+            <Helmet>
+                <title>{content.title} - Freefall</title>
+            </Helmet>
             <div className="pnaa-container">
                 <div className="pnaa-info-container">
                     <div className="pnaa-info-box">

@@ -1,14 +1,17 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import './ManagePost.css'
 import './ManageSlider.css'
 import headerImageLights from "../assets/header-image-lights.webp";
 import axios from "axios";
+import {Helmet} from "react-helmet";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 export const ManageSlider = () => {
     const [action, setAction] = useState<"update" | "delete" | "">("");
     const [imageUrl, setImageUrl] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [ sliderImages, setSliderImages ] = useState([]);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const urlInputRef = useRef<HTMLInputElement>(null);
     useEffect(() => {
         const fetchSliderImages = async () => {
             try {
@@ -16,7 +19,7 @@ export const ManageSlider = () => {
                 });
                 setSliderImages(response.data);
             } catch (error) {
-                console.error('Ошибка при получении поста:', error);
+                console.error('Getting slider images error:', error);
             }
         };
 
@@ -27,7 +30,7 @@ export const ManageSlider = () => {
         e.preventDefault();
 
         if (action === 'delete' && !imageUrl) {
-            alert("Post ID is required");
+            alert("slider image url is required");
             return;
         }
 
@@ -39,7 +42,14 @@ export const ManageSlider = () => {
                     headers: {
                         "Content-Type": "application/json"
                     }, credentials: "include" });
-                if (!response.ok) throw new Error("Failed to delete post");
+                if (!response.ok) throw new Error("Failed to delete slider image");
+                if (response.ok) {
+                    setImageUrl("");
+                    if (urlInputRef.current) {
+                        urlInputRef.current.value = "";
+                    }
+                    alert('Slider image deleted successfully.');
+                }
             }
 
             if (action === "update") {
@@ -53,11 +63,14 @@ export const ManageSlider = () => {
                     credentials: "include",
                 });
 
-
-                setImage(null)
-                setImageUrl("")
-
-                if (!response.ok) throw new Error("Failed to update post");
+                if (response.ok) {
+                    setImage(null);
+                    if (fileInputRef.current) {
+                        fileInputRef.current.value = "";
+                    }
+                    alert('Slider image uploaded');
+                }
+                if (!response.ok) throw new Error("Failed to update slider image");
             }
         } catch (err: any) {
             alert("Error: " + err.message);
@@ -66,6 +79,9 @@ export const ManageSlider = () => {
 
     return (
        <div>
+           <Helmet>
+               <title>Manage Slider - Freefall</title>
+           </Helmet>
            <div className="manage-slider-page-wrapper">
                <div className="admin-pages-images-container">
                    <div className="admin-pages-lights"><a href="/" className="admin-pages-lights-link"><img src={headerImageLights} alt=""/></a></div>
@@ -81,6 +97,7 @@ export const ManageSlider = () => {
                                        value={action}
                                        onChange={(e) => setAction(e.target.value as "update" | "delete" | "")}
                                >
+                                   <option className="form-item" value="">Select</option>
                                    <option className="form-item" value="delete">Delete</option>
                                    <option className="form-item" value="update">Add</option>
                                </select>
@@ -95,6 +112,7 @@ export const ManageSlider = () => {
                                           value={imageUrl}
                                           onChange={(e) => setImageUrl(e.target.value)}
                                           required
+                                          ref={urlInputRef}
                                    />
                                </div>
                            )}
@@ -105,6 +123,7 @@ export const ManageSlider = () => {
                                    <div className="form-group">
                                        <label className="form-item" htmlFor="image">Slider (1 image)</label>
                                        <input className="form-item"
+                                              ref={fileInputRef}
                                               id="image"
                                               type="file"
                                               accept="image/*"

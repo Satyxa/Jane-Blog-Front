@@ -4,9 +4,8 @@ import {OnePost} from "./onePost";
 import axios from 'axios';
 import React, {useEffect, useState} from "react";
 import {useParams, useSearchParams} from "react-router-dom";
-import {PostType} from "../post";
-import {useAuth} from "../../context/AuthContext";
 import KofiWidget from "../../main/KoFiWidget";
+import {Helmet} from "react-helmet";
 
 export type postType = {
     id: string;
@@ -32,20 +31,21 @@ export function PostsList() {
                         pageNumber,
                     },
                 });
-                console.log(SERVER_URL, '111')
                 setTotalCount(response.data.totalCount);
                 setPosts(response.data.posts);
             } catch (error) {
-                console.error('Ошибка при получении постов:', error);
+                console.error('Cannot get posts from server:', error);
             }
         };
         fetchPosts();
     }, [pageNumber, pageSize]);
 
     const totalPages = Math.ceil(totalCount / pageSize);
-    console.log(totalCount)
     return (
         <div>
+            <Helmet>
+                <title>{"Posts"} - Freefall</title>
+            </Helmet>
             <div className="pl-lights"><a href="/"><img src={headerImageLights} alt=""/></a></div>
             <div className="pl-posts-content-container">
                 <div className="pl-disclaimer">

@@ -1,6 +1,7 @@
 import "./CreateContent.css"
-import { useState } from "react";
+import React, { useState } from "react";
 import headerImageLights from "../assets/header-image-lights.webp";
+import {Helmet} from "react-helmet";
 
 type ContentType = "Post" | "wff" | "pnaa" | "Quote";
 
@@ -59,7 +60,6 @@ export function CreateContent() {
             contentType === "Post" ? "/posts" : "/admin-pages/wff-pnaa-pages";
 
         const method = contentType === "Post" ? "POST" : "PUT";
-
         if(contentType !== 'Quote') await fetch(`${SERVER_URL}${endpoint}`, {
             method,
             body: formData,
@@ -75,6 +75,9 @@ export function CreateContent() {
 
     return (
         <div className="create-post-container">
+            <Helmet>
+                <title>Create Content - Freefall</title>
+            </Helmet>
             <div className="admin-pages-images-container">
                 <div className="admin-pages-lights"><a href="/"><img src={headerImageLights} alt=""/></a></div>
             </div>
@@ -105,7 +108,6 @@ export function CreateContent() {
                                     type="text"
                                     value={title}
                                     onChange={e => setTitle(e.target.value)}
-                                    required
                                     className="form-input"
                                     placeholder="Enter title"
                                 />
@@ -116,7 +118,6 @@ export function CreateContent() {
                                     id="text"
                                     value={text}
                                     onChange={e => setText(e.target.value)}
-                                    required
                                     rows={6}
                                     className="form-textarea"
                                     placeholder="Enter content"
@@ -134,7 +135,6 @@ export function CreateContent() {
                                     type="text"
                                     value={author}
                                     onChange={e => setAuthor(e.target.value)}
-                                    required
                                     className="form-input"
                                     placeholder="Enter author"
                                 />
@@ -145,7 +145,6 @@ export function CreateContent() {
                                     id="text"
                                     value={text}
                                     onChange={e => setText(e.target.value)}
-                                    required
                                     rows={4}
                                     className="form-textarea"
                                     placeholder="Enter quote"

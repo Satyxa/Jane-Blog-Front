@@ -26,11 +26,6 @@ h1, p, a {
     text-align: center;
 }
 
-.test {
-    display: flex;
-    flex-direction: column;
-}
-
 .blog-container {
     display: flex;
     width: 95%;
@@ -145,14 +140,28 @@ h1, p, a {
     flex-direction: column;
     color: white;
     margin-left: 15%;
+    position: relative;
+    margin-bottom: 200px;
+}
+
+.test {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .blog-quote-text, .blog-quote-author {
+    padding: 0;
+    margin: 0;
     color: #22998c;
-    background-color: transparent;
+    height: auto;
+    width: 100%;
 }
 
 .blog-quote-author {
+    padding: 0;
+    margin: 0;
     text-align: right;
-    margin-bottom: 220px;
 }

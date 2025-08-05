@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
     .authorization-popup-send-button-box {
         width: 90%;
@@ -50,17 +50,12 @@
         background-color: #6E0303;
     }
 
-    .slider {
-        height: 400px;
-    }
-
-    .slide-content {
+    .slider, .slide-content, .slide-content img {
         height: 400px;
     }
 
     .slide-content img {
         width: 100%;
-        height: 400px;
         object-fit: cover;
     }
 
@@ -69,29 +64,45 @@
         max-width: 100%;
     }
 
-    /*.blog-quote-box {*/
-    /*    position: relative;*/
-    /*    width: 60%;*/
-    /*    height: auto;*/
-    /*    background-color: transparent;*/
-    /*    top: 20px;*/
-    /*    left: 12px;*/
-    /*}*/
-
     .blog-quote-box {
-        width: 90%;
         margin: 0 auto;
+        position: relative;
+        width: 80%;
+        height: auto;
         background-color: transparent;
+        top: 20px;
+        left: 12px;
     }
 
+    /*.blog-quote-box {*/
+    /*    width: 95%;*/
+    /*    height: fit-content;*/
+    /*    margin: 0 auto;*/
+    /*    !*padding: 10px;*!*/
+    /*    background-color: transparent;*/
+    /*    margin-bottom: 200px;*/
+    /*}*/
+
+    /*.test {*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*    justify-content: center;*/
+
+    /*    position: absolute;*/
+    /*    right: 10px;*/
+    /*    margin-top: 350%;*/
+    /*    background-color: transparent;*/
+
+    /*}*/
+
     .projectIdea {
-        padding-top: 520px;
+        padding-top: 0;
+        /*position: absolute;*/
     }
 
     .letters { order: 1; }   /* буквы слева в ряду */
     .header-image-box { order: 2; }  /* фонарики идут первыми */
     .blog-box        { order: 3; }   /* карусель по центру после букв */
     .project-idea    { order: 4; }   /* personNotAd справа в ряду */
-    .blog-link       { order: 5; }   /* ссылка на комменты */
-    .blog-about-box  { order: 6; }
+
 }
