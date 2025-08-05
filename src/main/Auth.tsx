@@ -19,20 +19,20 @@ export const Auth = () => {
 
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const res = await axios.get(`${SERVER_URL}/auth/me`, {
-                    withCredentials: true,
-                });
-                setAuthenticated(true);
-            } catch (e) {
-                setAuthenticated(false);
-            }
-        };
-
-        checkAuth();
-    }, []);
+    // useEffect(() => {
+    //     const checkAuth = async () => {
+    //         try {
+    //             const res = await axios.get(`${SERVER_URL}/auth/me`, {
+    //                 withCredentials: true,
+    //             });
+    //             setAuthenticated(true);
+    //         } catch (e) {
+    //             setAuthenticated(false);
+    //         }
+    //     };
+    //
+    //     checkAuth();
+    // }, []);
 
     const handleLogout = async () => {
         try {
@@ -43,24 +43,6 @@ export const Auth = () => {
             setIsMenuVisible(false); // закрыть меню
         } catch (error) {
             console.error('Logout failed', error);
-        }
-    };
-
-    const handleLogin = async () => {
-        try {
-            await axios.post(`${SERVER_URL}/auth/login`, {
-                email,
-                password,
-            }, { withCredentials: true });
-
-            setAuthenticated(true);
-            setIsPopupVisible(false); // закрыть попап
-            setEmail(""); // очистить поля
-            setPassword("");
-            setIsRegister(false);
-            setIsReset(false);
-        } catch (err) {
-            alert("Login failed");
         }
     };
 
@@ -86,17 +68,19 @@ export const Auth = () => {
                 return;
             }
 
-            await axios.post(`${SERVER_URL}/auth/login`, {
+            const loginResponse = await axios.post(`${SERVER_URL}/auth/login`, {
                 email,
                 password,
             }, { withCredentials: true });
 
-            setAuthenticated(true);
-            setIsPopupVisible(false);
-            setEmail("");
-            setPassword("");
-            setIsRegister(false);
-            setIsReset(false);
+            if(loginResponse.status === 200) {
+                setAuthenticated(true);
+                setIsPopupVisible(false);
+                setEmail("");
+                setPassword("");
+                setIsRegister(false);
+                setIsReset(false);
+            }
         } catch (err) {
             alert("Cannot send auth request");
         }

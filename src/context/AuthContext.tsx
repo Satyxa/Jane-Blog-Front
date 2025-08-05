@@ -13,17 +13,20 @@ const AuthContext = createContext<{
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true); // добавим индикатор
 
     const checkAuth = async () => {
         try {
             const res = await axios.get(`${SERVER_URL}/auth/me`, {
-                withCredentials: true // важно!
+                withCredentials: true,
             });
             if (res.status === 200) {
                 setIsAuthenticated(true);
             }
         } catch (err) {
             setIsAuthenticated(false);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -32,13 +35,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     const logout = async () => {
-        await axios.post(`${SERVER_URL}/auth/logout`, {}, { withCredentials: true });
-        setIsAuthenticated(false);
+        try {
+            await axios.post(`${SERVER_URL}/auth/logout`, {}, { withCredentials: true });
+        } catch (err) {
+            console.warn("Logout error, maybe already logged out:", err);
+        } finally {
+            setIsAuthenticated(false); // всегда сбрасывай
+        }
     };
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, setAuthenticated: setIsAuthenticated, logout }}>
-            {children}
+            {!loading && children}
         </AuthContext.Provider>
     );
 };
