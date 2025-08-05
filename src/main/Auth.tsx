@@ -19,21 +19,6 @@ export const Auth = () => {
 
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-    // useEffect(() => {
-    //     const checkAuth = async () => {
-    //         try {
-    //             const res = await axios.get(`${SERVER_URL}/auth/me`, {
-    //                 withCredentials: true,
-    //             });
-    //             setAuthenticated(true);
-    //         } catch (e) {
-    //             setAuthenticated(false);
-    //         }
-    //     };
-    //
-    //     checkAuth();
-    // }, []);
-
     const handleLogout = async () => {
         try {
             await axios.post(`${SERVER_URL}/auth/logout`, {}, {

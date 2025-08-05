@@ -20,9 +20,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             const res = await axios.get(`${SERVER_URL}/auth/me`, {
                 withCredentials: true,
             });
+            console.log(res.status)
             if (res.status === 200) {
                 setIsAuthenticated(true);
-            }
+            } else setIsAuthenticated(false);
         } catch (err) {
             setIsAuthenticated(false);
         } finally {
